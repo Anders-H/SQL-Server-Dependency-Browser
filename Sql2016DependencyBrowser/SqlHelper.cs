@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace Sql2012DependencyBrowser
+namespace Sql2016DependencyBrowser
 {
     public class SqlHelper
     {
@@ -25,9 +25,7 @@ namespace Sql2012DependencyBrowser
             try
             {
                 using (var cn = new SqlConnection(connectionString))
-                {
                     ret = TestConnection(cn);
-                }
             }
             catch
             {
@@ -48,9 +46,8 @@ namespace Sql2012DependencyBrowser
                         var s = (string)cmd.ExecuteScalar();
                         if (s.ToLower().StartsWith("microsoft sql server "))
                         {
-                            int year;
-                            if (int.TryParse(s.Substring(21, 4), out year))
-                                ret = year >= 2012;
+                            if (int.TryParse(s.Substring(21, 4), out int year))
+                                ret = year >= 2016;
                         }
                     }
                     cn.Close();

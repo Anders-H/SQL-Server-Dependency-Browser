@@ -1,4 +1,4 @@
-﻿namespace Sql2012DependencyBrowser
+﻿namespace Sql2016DependencyBrowser
 {
    partial class LoginDialog
    {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sql2012DependencyBrowser
+namespace Sql2016DependencyBrowser
 {
     public partial class PropertiesDialog : Form
     {
@@ -32,7 +32,7 @@ namespace Sql2012DependencyBrowser
                 {
                     cn.Open();
                     var sys = SysObject.GetObject(cn, DbObject.Id, DbObject.Type);
-                    if (sys.SchemaId > 0 && !(string.IsNullOrEmpty(sys.SchemaName)))
+                    if (sys.SchemaId > 0 && !string.IsNullOrEmpty(sys.SchemaName))
                         txtSchema.Text = $@"{sys.SchemaName} (ID {sys.SchemaId})";
                     else if (sys.SchemaId > 0)
                         txtSchema.Text = $@"ID {sys.SchemaId}";

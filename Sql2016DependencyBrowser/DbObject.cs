@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using Sql2012DependencyBrowser;
 
-namespace Sql2012DependencyBrowser
+namespace Sql2016DependencyBrowser
 {
     public class DbObject
     {
@@ -14,10 +15,7 @@ namespace Sql2012DependencyBrowser
         }
         public DbObject(SqlConnection cn, string objectName)
         {
-            int id;
-            string name;
-            string type;
-            SqlHelper.GetIdAndTypeFromName(cn, objectName, out id, out name, out type);
+            SqlHelper.GetIdAndTypeFromName(cn, objectName, out int id, out string name, out string type);
             Id = id;
             Name = name;
             Type = type;
@@ -36,7 +34,6 @@ namespace Sql2012DependencyBrowser
         }
         public int SchemaId { get; set; }
         public string SchemaName { get; set; }
-
         public static SysObject GetObject(SqlConnection cn, int id, string type)
         {
             var name = "";

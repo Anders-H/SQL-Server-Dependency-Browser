@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sql2012DependencyBrowser", "Sql2012DependencyBrowser\Sql2012DependencyBrowser.csproj", "{0D351E6D-5502-4D73-AECF-7BF4784633DD}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sql2016DependencyBrowser", "Sql2016DependencyBrowser\Sql2016DependencyBrowser.csproj", "{0D351E6D-5502-4D73-AECF-7BF4784633DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

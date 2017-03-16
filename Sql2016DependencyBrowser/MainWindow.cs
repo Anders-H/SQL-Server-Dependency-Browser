@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Sql2012DependencyBrowser;
 
-namespace Sql2012DependencyBrowser
+namespace Sql2016DependencyBrowser
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private string _connectionString = "";
         private string _serverName = "";
         private string _databaseName = "";
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -241,8 +242,17 @@ namespace Sql2012DependencyBrowser
             var x = n?.Tag as DbObject;
             if (x == null)
                 return;
-            using (var d = new PropertiesDialog())
-                d.ShowDialog(this, x, _connectionString);
+            switch (x.Type)
+            {
+                case "USER_TABLE":
+                    using (var d = new TablePropertiesDialog())
+                        d.ShowDialog(this, x, _connectionString);
+                    break;
+                default:
+                    using (var d = new PropertiesDialog())
+                        d.ShowDialog(this, x, _connectionString);
+                    break;
+            }
         }
     }
 }
