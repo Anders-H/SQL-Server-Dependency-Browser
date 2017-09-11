@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using Sql2012DependencyBrowser;
 
 namespace Sql2016DependencyBrowser
 {

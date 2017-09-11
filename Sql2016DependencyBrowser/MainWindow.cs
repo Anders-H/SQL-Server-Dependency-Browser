@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using Sql2012DependencyBrowser;
 
 namespace Sql2016DependencyBrowser
 {
@@ -184,8 +183,7 @@ namespace Sql2016DependencyBrowser
             //Denna körs bara när vi verkligen hittat en child som är en dummy.
             Cursor = Cursors.WaitCursor;
             n.Nodes.Clear();
-            var dbObject = n.Tag as DbObject;
-            if (dbObject != null)
+            if (n.Tag is DbObject dbObject)
             {
                 var dbo = dbObject;
                 try

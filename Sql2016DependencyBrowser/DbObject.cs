@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using Sql2012DependencyBrowser;
 
 namespace Sql2016DependencyBrowser
 {

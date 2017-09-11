@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using Sql2012DependencyBrowser;
 
 namespace Sql2016DependencyBrowser
 {
@@ -58,9 +57,9 @@ namespace Sql2016DependencyBrowser
                             MessageBox.Show(@"Test successful.", @"Test completed", MessageBoxButtons.OK, MessageBoxIcon.None);
                         else
                             MessageBox.Show(@"Not expected SQL Server version or insufficient permissions.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
-                    else
-                        MessageBox.Show(@"Can't connect to database.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(@"Can't connect to database.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -84,9 +83,7 @@ namespace Sql2016DependencyBrowser
         {
             try
             {
-                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString);
-                cnstrBuild.DataSource = txtServer.Text;
-                cnstrBuild.InitialCatalog = cboDatabase.Text;
+                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString) { DataSource = txtServer.Text, InitialCatalog = cboDatabase.Text };
                 if (radioIntegrated.Checked)
                     cnstrBuild.IntegratedSecurity = true;
                 else
@@ -113,9 +110,9 @@ namespace Sql2016DependencyBrowser
                         Application.UserAppDataRegistry.SetValue("Username", txtUsername.Text);
                     }
                     DialogResult = DialogResult.OK;
+                    return;
                 }
-                else
-                    MessageBox.Show(@"The given information could not be used to connect to SQL Server.", @"Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"The given information could not be used to connect to SQL Server.", @"Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
             {
@@ -136,9 +133,7 @@ namespace Sql2016DependencyBrowser
             Cursor = Cursors.WaitCursor;
             try
             {
-                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString);
-                cnstrBuild.DataSource = txtServer.Text;
-                cnstrBuild.InitialCatalog = "master";
+                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString) { DataSource = txtServer.Text, InitialCatalog = "master" };
                 if (radioIntegrated.Checked)
                     cnstrBuild.IntegratedSecurity = true;
                 else

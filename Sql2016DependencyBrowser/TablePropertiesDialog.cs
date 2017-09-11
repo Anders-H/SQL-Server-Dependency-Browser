@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Sql2016DependencyBrowser;
 
-namespace Sql2012DependencyBrowser
+namespace Sql2016DependencyBrowser
 {
     public partial class TablePropertiesDialog : Form
     {
