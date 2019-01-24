@@ -19,6 +19,7 @@ namespace Sql2016DependencyBrowser
             }
             return ret;
         }
+
         public static bool TestConnection(string connectionString)
         {
             bool ret;
@@ -33,6 +34,7 @@ namespace Sql2016DependencyBrowser
             }
             return ret;
         }
+
         public static bool CheckVersion(string connectionString)
         {
             var ret = false;
@@ -59,6 +61,7 @@ namespace Sql2016DependencyBrowser
             }
             return ret;
         }
+
         public static bool GetIdAndTypeFromName(SqlConnection cn, string objectName, out int id, out string name, out string type)
         {
             id = 0;

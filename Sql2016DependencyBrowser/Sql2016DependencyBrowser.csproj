@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
+    <Compile Include="SysObject.cs" />
     <Compile Include="TableModel.cs" />
     <Compile Include="TablePropertiesDialog.cs">
       <SubType>Form</SubType>

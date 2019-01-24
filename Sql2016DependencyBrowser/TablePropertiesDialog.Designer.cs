@@ -46,7 +46,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 180);
+            this.label6.Location = new System.Drawing.Point(12, 232);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 10;
@@ -57,7 +57,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(96, 104);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(228, 69);
+            this.listBox1.Size = new System.Drawing.Size(352, 121);
             this.listBox1.TabIndex = 9;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
@@ -75,7 +75,7 @@
             this.txtName.Location = new System.Drawing.Point(96, 56);
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
-            this.txtName.Size = new System.Drawing.Size(228, 20);
+            this.txtName.Size = new System.Drawing.Size(352, 20);
             this.txtName.TabIndex = 5;
             // 
             // label4
@@ -92,7 +92,7 @@
             this.txtSchema.Location = new System.Drawing.Point(96, 32);
             this.txtSchema.Name = "txtSchema";
             this.txtSchema.ReadOnly = true;
-            this.txtSchema.Size = new System.Drawing.Size(228, 20);
+            this.txtSchema.Size = new System.Drawing.Size(352, 20);
             this.txtSchema.TabIndex = 3;
             // 
             // label3
@@ -107,7 +107,7 @@
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(250, 356);
+            this.btnClose.Location = new System.Drawing.Point(372, 476);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 12;
@@ -119,7 +119,7 @@
             this.txtType.Location = new System.Drawing.Point(96, 80);
             this.txtType.Name = "txtType";
             this.txtType.ReadOnly = true;
-            this.txtType.Size = new System.Drawing.Size(228, 20);
+            this.txtType.Size = new System.Drawing.Size(352, 20);
             this.txtType.TabIndex = 7;
             // 
             // label2
@@ -136,7 +136,7 @@
             this.txtObjectID.Location = new System.Drawing.Point(96, 8);
             this.txtObjectID.Name = "txtObjectID";
             this.txtObjectID.ReadOnly = true;
-            this.txtObjectID.Size = new System.Drawing.Size(228, 20);
+            this.txtObjectID.Size = new System.Drawing.Size(352, 20);
             this.txtObjectID.TabIndex = 1;
             // 
             // label1
@@ -150,9 +150,9 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(96, 176);
+            this.listView1.Location = new System.Drawing.Point(96, 232);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(228, 176);
+            this.listView1.Size = new System.Drawing.Size(352, 240);
             this.listView1.TabIndex = 11;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -161,7 +161,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(334, 386);
+            this.ClientSize = new System.Drawing.Size(457, 508);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBox1);
