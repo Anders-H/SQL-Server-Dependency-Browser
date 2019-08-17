@@ -9,21 +9,28 @@ namespace Sql2016DependencyBrowser
         private string _connectionString = "";
         private string _serverName = "";
         private string _databaseName = "";
+        private IMessageDisplayer Md { get; } = new MessageDisplayer();
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             lblStatus.Text = @"Not connected.";
             _connectionString = "";
         }
+
         private void Form1_Shown(object sender, EventArgs e)
         {
             Refresh();
             Connect();
         }
-        private void btnConnect_Click(object sender, EventArgs e) => Connect();
+
+        private void btnConnect_Click(object sender, EventArgs e) =>
+            Connect();
+
         private void Connect()
         {
             using (var x = new LoginDialog())
@@ -37,6 +44,7 @@ namespace Sql2016DependencyBrowser
                 LoadRoot();
             }
         }
+
         private void btnTest_Click(object sender, EventArgs e)
         {
             var cnstrBuild = new SqlConnectionStringBuilder(_connectionString);
@@ -49,21 +57,24 @@ namespace Sql2016DependencyBrowser
                 if (SqlHelper.CheckVersion(cnstrBuild.ConnectionString))
                 {
                     lblStatus.Text = $@"Connected to server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : (_serverName == "." ? "local server" : _serverName))}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                    MessageBox.Show(@"Test successful.", @"Test completed", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    Md.Void(@"Test successful.", @"Test completed");
                 }
                 else
                 {
                     lblStatus.Text = $@"Could not connect server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : _serverName)}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                    MessageBox.Show(@"Not expected SQL Server version or insufficient permissions.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Md.Fail(@"Not expected SQL Server version or insufficient permissions.", @"Test failed");
                 }
             }
             else
             {
                 lblStatus.Text = $@"Could not connect server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : _serverName)}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                MessageBox.Show(@"Can't connect to database.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Md.Fail(@"Can't connect to database.", @"Test failed");
             }
         }
-        private void btnRefresh_Click(object sender, EventArgs e) => LoadRoot();
+
+        private void btnRefresh_Click(object sender, EventArgs e) =>
+            LoadRoot();
+
         private void LoadRoot()
         {
             treeView1.Nodes.Clear();
@@ -169,6 +180,7 @@ namespace Sql2016DependencyBrowser
             }
             Cursor = Cursors.Default;
         }
+
         private void treeView1_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             if (e.Node.Nodes.Count != 1) //Identify dummy
@@ -178,6 +190,7 @@ namespace Sql2016DependencyBrowser
             if (e.Node.Nodes[0].Text == @"Dummy")
                 PopulateChildren(e.Node); //Dummy identified
         }
+
         private void PopulateChildren(TreeNode n)
         {
             //Denna körs bara när vi verkligen hittat en child som är en dummy.
@@ -227,13 +240,20 @@ namespace Sql2016DependencyBrowser
                 catch (Exception ex)
                 {
                     Cursor = Cursors.Default;
-                    MessageBox.Show(ex.Message, @"An error has occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Md.Fail(ex.Message, @"An error has occured");
                 }
             }
             Cursor = Cursors.Default;
         }
-        private void btnAbout_Click(object sender, EventArgs e) => MessageBox.Show($@"SQL Server 2012 Dependency Browser version {Application.ProductVersion} for SQL Server 2012 or later.", @"About", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) => btnProperties.Enabled = e.Node?.Tag is DbObject;
+
+        private void btnAbout_Click(object sender, EventArgs e) =>
+            Md.Tell(
+                $@"SQL Server 2012 Dependency Browser version {Application.ProductVersion} for SQL Server 2012 or later.",
+                @"About");
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) =>
+            btnProperties.Enabled = e.Node?.Tag is DbObject;
+
         private void btnProperties_Click(object sender, EventArgs e)
         {
             var n = treeView1.SelectedNode;

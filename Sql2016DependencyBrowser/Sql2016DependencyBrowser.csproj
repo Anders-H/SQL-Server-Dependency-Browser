@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbObject.cs" />
+    <Compile Include="IMessageDisplayer.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +63,8 @@
     <Compile Include="LoginDialog.Designer.cs">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowController.cs" />
+    <Compile Include="MessageDisplayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesDialog.cs">
       <SubType>Form</SubType>
