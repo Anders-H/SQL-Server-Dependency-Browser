@@ -8,10 +8,12 @@ namespace Sql2016DependencyBrowser
         private DbObject DbObject { get; set; }
         private string ConnectionString { get; set; }
         private bool MoveAway { get; set; }
+
         public PropertiesDialog()
         {
             InitializeComponent();
         }
+
         internal DialogResult ShowDialog(IWin32Window owner, DbObject d, string connectionString, bool moveAway = false)
         {
             DbObject = d;
@@ -19,6 +21,7 @@ namespace Sql2016DependencyBrowser
             MoveAway = moveAway;
             return ShowDialog(owner);
         }
+
         private void PropertiesDialog_Shown(object sender, EventArgs e)
         {
             txtObjectID.Text = DbObject.Id.ToString();
@@ -51,6 +54,7 @@ namespace Sql2016DependencyBrowser
             }
             Cursor = Cursors.Default;
         }
+
         private void PropertiesDialog_Load(object sender, EventArgs e)
         {
             if (!MoveAway)
@@ -58,6 +62,7 @@ namespace Sql2016DependencyBrowser
             Top += 10;
             Left += 10;
         }
+
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var index = listBox1.IndexFromPoint(e.X, e.Y);
@@ -65,8 +70,7 @@ namespace Sql2016DependencyBrowser
                 return;
             if (index < 0 || index >= listBox1.Items.Count)
                 return;
-            var item = listBox1.Items[index] as DbObject;
-            if (item == null)
+            if (!(listBox1.Items[index] is DbObject item))
                 return;
             using (var x = new PropertiesDialog())
                 x.ShowDialog(this, item, ConnectionString, true);

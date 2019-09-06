@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Sql2016DependencyBrowser
@@ -10,6 +11,7 @@ namespace Sql2016DependencyBrowser
         private string _serverName = "";
         private string _databaseName = "";
         private IMessageDisplayer Md { get; } = new MessageDisplayer();
+        private MainWindowController _c;
 
         public MainWindow()
         {
@@ -18,6 +20,7 @@ namespace Sql2016DependencyBrowser
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _c = new MainWindowController(treeView1);
             lblStatus.Text = @"Not connected.";
             _connectionString = "";
         }
@@ -40,7 +43,13 @@ namespace Sql2016DependencyBrowser
                 _serverName = x.ServerName;
                 _databaseName = x.DatabaseName;
                 _connectionString = x.ConnectionString;
-                lblStatus.Text = $@"Connected to server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : (_serverName == "." ? "local server" : _serverName))}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
+                var serverDisplayName = (string.IsNullOrEmpty(_serverName)
+                    ? "[Unknown server]"
+                    : _serverName == "." ? "local server" : _serverName);
+                var databaseDisplayName = string.IsNullOrEmpty(_databaseName)
+                    ? "[Unknown database]"
+                    : _databaseName;
+                lblStatus.Text = $@"Connected to server {serverDisplayName}, database {databaseDisplayName}.";
                 LoadRoot();
             }
         }
@@ -79,27 +88,13 @@ namespace Sql2016DependencyBrowser
         {
             treeView1.Nodes.Clear();
             Cursor = Cursors.WaitCursor;
-            var nodeCheckConstraint = treeView1.Nodes.Add("Check Constraints");
-            nodeCheckConstraint.ImageIndex = 0;
-            nodeCheckConstraint.SelectedImageIndex = 0;
-            var nodeSfunc = treeView1.Nodes.Add("Functions - Scalar");
-            nodeSfunc.ImageIndex = 0;
-            nodeSfunc.SelectedImageIndex = 0;
-            var nodeSp = treeView1.Nodes.Add("Stored Procedures");
-            nodeSp.ImageIndex = 0;
-            nodeSp.SelectedImageIndex = 0;
-            var nodeTfunc = treeView1.Nodes.Add("Functions - Table Valued");
-            nodeTfunc.ImageIndex = 0;
-            nodeTfunc.SelectedImageIndex = 0;
-            var nodeTable = treeView1.Nodes.Add("Tables");
-            nodeTable.ImageIndex = 0;
-            nodeTable.SelectedImageIndex = 0;
-            var nodeTrigger = treeView1.Nodes.Add("Triggers");
-            nodeTrigger.ImageIndex = 0;
-            nodeTrigger.SelectedImageIndex = 0;
-            var nodeView = treeView1.Nodes.Add("Views");
-            nodeView.ImageIndex = 0;
-            nodeView.SelectedImageIndex = 0;
+            var nodeCheckConstraint = _c.AddRootFolder("Check Constraints", 0);
+            var nodeSfunc = _c.AddRootFolder("Functions - Scalar", 0);
+            var nodeSp = _c.AddRootFolder("Stored Procedures", 0);
+            var nodeTfunc = _c.AddRootFolder("Functions - Table Valued", 0);
+            var nodeTable = _c.AddRootFolder("Tables", 0);
+            var nodeTrigger = _c.AddRootFolder("Triggers", 0);
+            var nodeView = _c.AddRootFolder("Views", 0);
             try
             {
                 using (var cn = new SqlConnection(_connectionString))
@@ -248,7 +243,7 @@ namespace Sql2016DependencyBrowser
 
         private void btnAbout_Click(object sender, EventArgs e) =>
             Md.Tell(
-                $@"SQL Server 2012 Dependency Browser version {Application.ProductVersion} for SQL Server 2012 or later.",
+                $@"SQL Server 2016 Dependency Browser version {Application.ProductVersion} for SQL Server 2012 or later.",
                 @"About");
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) =>
@@ -257,8 +252,7 @@ namespace Sql2016DependencyBrowser
         private void btnProperties_Click(object sender, EventArgs e)
         {
             var n = treeView1.SelectedNode;
-            var x = n?.Tag as DbObject;
-            if (x == null)
+            if (!(n?.Tag is DbObject x))
                 return;
             switch (x.Type)
             {
