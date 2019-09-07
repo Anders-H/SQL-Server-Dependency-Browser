@@ -100,9 +100,8 @@ namespace Sql2016DependencyBrowser
             }
             catch
             {
-                // ignored
+                return false;
             }
-            return false;
         }
     }
 }

@@ -36,6 +36,8 @@ namespace Sql2016DependencyBrowser
                 }
                 r.Close();
             }
+            if (id == 965578478)
+                System.Diagnostics.Debug.WriteLine(id);
             return new SysObject(id, type, name, sId, sName);
         }
 

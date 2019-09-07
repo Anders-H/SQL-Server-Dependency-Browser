@@ -24,9 +24,10 @@ namespace Sql2016DependencyBrowser
 
         private void PropertiesDialog_Shown(object sender, EventArgs e)
         {
+            //BUGG: Object name is wrong.
             txtObjectID.Text = DbObject.Id.ToString();
             txtType.Text = DbObject.Type;
-            txtName.Text = DbObject.Name;
+            //txtName.Text = DbObject.Name;
             Refresh();
             Cursor = Cursors.WaitCursor;
             try
@@ -35,6 +36,7 @@ namespace Sql2016DependencyBrowser
                 {
                     cn.Open();
                     var sys = SysObject.GetObject(cn, DbObject.Id, DbObject.Type);
+                    txtName.Text = sys.Name; //Temporary fix.
                     if (sys.SchemaId > 0 && !string.IsNullOrEmpty(sys.SchemaName))
                         txtSchema.Text = $@"{sys.SchemaName} (ID {sys.SchemaId})";
                     else if (sys.SchemaId > 0)

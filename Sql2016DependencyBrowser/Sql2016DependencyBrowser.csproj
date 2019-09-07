@@ -76,12 +76,6 @@
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SysObject.cs" />
     <Compile Include="TableModel.cs" />
-    <Compile Include="TablePropertiesDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TablePropertiesDialog.Designer.cs">
-      <DependentUpon>TablePropertiesDialog.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,9 +95,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TablePropertiesDialog.resx">
-      <DependentUpon>TablePropertiesDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

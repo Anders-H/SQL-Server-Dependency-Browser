@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Sql2016DependencyBrowser
@@ -151,8 +150,8 @@ namespace Sql2016DependencyBrowser
                                 case "USER_TABLE":
                                     n = nodeTable.Nodes.Add(name);
                                     n.Tag = new DbObject(id, name, type);
-                                    n.ImageIndex = 1;
-                                    n.SelectedImageIndex = 1;
+                                    n.ImageIndex = 2;
+                                    n.SelectedImageIndex = 2;
                                     n.Nodes.Add("Dummy");
                                     break;
                                 case "VIEW":
@@ -218,9 +217,17 @@ namespace Sql2016DependencyBrowser
                                 foreach (var dep in deps)
                                 {
                                     var node = n.Nodes.Add(dep.Name);
-                                    node.Tag = new DbObject(dep.Id, n.Text, dep.Type);
-                                    node.ImageIndex = 1;
-                                    node.SelectedImageIndex = 1;
+                                    var obj = new DbObject(dep.Id, n.Text, dep.Type);
+                                    node.Tag = obj;
+                                    var imageIndex = 1;
+                                    switch (obj.Type)
+                                    {
+                                        case "USER_TABLE":
+                                            imageIndex = 2;
+                                            break;
+                                    }
+                                    node.ImageIndex = imageIndex;
+                                    node.SelectedImageIndex = imageIndex;
                                     node.Nodes.Add("Dummy");
                                 }
                             }
@@ -254,17 +261,8 @@ namespace Sql2016DependencyBrowser
             var n = treeView1.SelectedNode;
             if (!(n?.Tag is DbObject x))
                 return;
-            switch (x.Type)
-            {
-                case "USER_TABLE":
-                    using (var d = new TablePropertiesDialog())
-                        d.ShowDialog(this, x, _connectionString);
-                    break;
-                default:
-                    using (var d = new PropertiesDialog())
-                        d.ShowDialog(this, x, _connectionString);
-                    break;
-            }
+            using (var d = new PropertiesDialog())
+                d.ShowDialog(this, x, _connectionString);
         }
     }
 }

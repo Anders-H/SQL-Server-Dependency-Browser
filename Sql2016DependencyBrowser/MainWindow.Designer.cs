@@ -147,6 +147,7 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Folder_16x16.png");
             this.imageList1.Images.SetKeyName(1, "Dot.png");
+            this.imageList1.Images.SetKeyName(2, "table.png");
             // 
             // MainWindow
             // 
