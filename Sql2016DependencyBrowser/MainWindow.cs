@@ -250,7 +250,7 @@ namespace Sql2016DependencyBrowser
 
         private void btnAbout_Click(object sender, EventArgs e) =>
             Md.Tell(
-                $@"SQL Server 2016 Dependency Browser version {Application.ProductVersion} for SQL Server 2012 or later.",
+                $@"SQL Server 2016 Dependency Browser version {Application.ProductVersion} for SQL Server 2016 or later.",
                 @"About");
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) =>
