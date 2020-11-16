@@ -7,12 +7,14 @@ namespace Sql2016DependencyBrowser
     {
         public string Name { get; set; }
         public List<TableField> Fields { get; } = new List<TableField>();
+
         public void Load(SqlConnection cn, string name)
         {
             Fields.Clear();
 
         }
     }
+
     public class TableField
     {
         public string Name { get; set; }

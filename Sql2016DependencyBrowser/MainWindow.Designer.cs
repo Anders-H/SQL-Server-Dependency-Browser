@@ -148,6 +148,8 @@
             this.imageList1.Images.SetKeyName(0, "Folder_16x16.png");
             this.imageList1.Images.SetKeyName(1, "Dot.png");
             this.imageList1.Images.SetKeyName(2, "table.png");
+            this.imageList1.Images.SetKeyName(3, "view.png");
+            this.imageList1.Images.SetKeyName(4, "sp.png");
             // 
             // MainWindow
             // 

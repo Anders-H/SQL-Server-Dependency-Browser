@@ -136,8 +136,8 @@ namespace Sql2016DependencyBrowser
                                 case "SQL_STORED_PROCEDURE":
                                     n = nodeSp.Nodes.Add(name);
                                     n.Tag = new DbObject(id, name, type);
-                                    n.ImageIndex = 1;
-                                    n.SelectedImageIndex = 1;
+                                    n.ImageIndex = 4;
+                                    n.SelectedImageIndex = 4;
                                     n.Nodes.Add("Dummy");
                                     break;
                                 case "SQL_TRIGGER":
@@ -157,8 +157,8 @@ namespace Sql2016DependencyBrowser
                                 case "VIEW":
                                     n = nodeView.Nodes.Add(name);
                                     n.Tag = new DbObject(id, name, type);
-                                    n.ImageIndex = 1;
-                                    n.SelectedImageIndex = 1;
+                                    n.ImageIndex = 3;
+                                    n.SelectedImageIndex = 3;
                                     n.Nodes.Add("Dummy");
                                     break;
                             }
@@ -224,6 +224,12 @@ namespace Sql2016DependencyBrowser
                                     {
                                         case "USER_TABLE":
                                             imageIndex = 2;
+                                            break;
+                                        case "VIEW":
+                                            imageIndex = 3;
+                                            break;
+                                        case "SQL_STORED_PROCEDURE":
+                                            imageIndex = 4;
                                             break;
                                     }
                                     node.ImageIndex = imageIndex;

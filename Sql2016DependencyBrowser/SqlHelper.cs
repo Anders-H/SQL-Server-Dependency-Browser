@@ -48,7 +48,7 @@ namespace Sql2016DependencyBrowser
                         var s = (string)cmd.ExecuteScalar();
                         if (s.ToLower().StartsWith("microsoft sql server "))
                         {
-                            if (int.TryParse(s.Substring(21, 4), out int year))
+                            if (int.TryParse(s.Substring(21, 4), out var year))
                                 ret = year >= 2016;
                         }
                     }
@@ -71,6 +71,7 @@ namespace Sql2016DependencyBrowser
             {
                 if (objectName.IndexOf('.') <= -1)
                     return true;
+
                 var splitname = objectName.Split('.');
                 name = splitname[1];
                 var schemaId = 0;
@@ -84,6 +85,7 @@ namespace Sql2016DependencyBrowser
                 }
                 if (schemaId <= 0)
                     return true;
+
                 using (var cmd = new SqlCommand("SELECT object_id, type_desc FROM sys.objects WHERE name = @n AND schema_id=@s", cn))
                 {
                     cmd.Parameters.AddWithValue("@n", name);
