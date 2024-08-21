@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public class MessageDisplayer: IMessageDisplayer
     {

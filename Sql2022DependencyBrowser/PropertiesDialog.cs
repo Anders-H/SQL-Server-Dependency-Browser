@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public partial class PropertiesDialog : Form
     {
@@ -30,6 +30,7 @@ namespace Sql2016DependencyBrowser
             //txtName.Text = DbObject.Name;
             Refresh();
             Cursor = Cursors.WaitCursor;
+
             try
             {
                 using (var cn = new System.Data.SqlClient.SqlConnection(ConnectionString))
@@ -37,15 +38,19 @@ namespace Sql2016DependencyBrowser
                     cn.Open();
                     var sys = SysObject.GetObject(cn, DbObject.Id, DbObject.Type);
                     txtName.Text = sys.Name; //Temporary fix.
+                    
                     if (sys.SchemaId > 0 && !string.IsNullOrEmpty(sys.SchemaName))
                         txtSchema.Text = $@"{sys.SchemaName} (ID {sys.SchemaId})";
                     else if (sys.SchemaId > 0)
                         txtSchema.Text = $@"ID {sys.SchemaId}";
                     else if (!(string.IsNullOrEmpty(sys.SchemaName)))
                         txtSchema.Text = sys.SchemaName;
+                    
                     var deps = sys.GetDependencies(cn);
+                    
                     foreach (var o in deps)
                         listBox1.Items.Add(o);
+                    
                     txtSource.Text = sys.GetSource(cn);
                     cn.Close();
                 }
@@ -54,6 +59,7 @@ namespace Sql2016DependencyBrowser
             {
                 txtObjectID.Text += $@" (Warning: {ex.Message})";
             }
+            
             Cursor = Cursors.Default;
         }
 
@@ -61,6 +67,7 @@ namespace Sql2016DependencyBrowser
         {
             if (!MoveAway)
                 return;
+            
             Top += 10;
             Left += 10;
         }
@@ -68,12 +75,16 @@ namespace Sql2016DependencyBrowser
         private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var index = listBox1.IndexFromPoint(e.X, e.Y);
+            
             if (index == ListBox.NoMatches)
                 return;
+            
             if (index < 0 || index >= listBox1.Items.Count)
                 return;
+            
             if (!(listBox1.Items[index] is DbObject item))
                 return;
+
             using (var x = new PropertiesDialog())
                 x.ShowDialog(this, item, ConnectionString, true);
         }

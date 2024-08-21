@@ -1,4 +1,4 @@
-﻿namespace Sql2016DependencyBrowser
+﻿namespace Sql2022DependencyBrowser
 {
    partial class PropertiesDialog
    {

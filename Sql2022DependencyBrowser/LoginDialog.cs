@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public partial class LoginDialog : Form
     {
@@ -24,12 +24,17 @@ namespace Sql2016DependencyBrowser
         {
             txtServer.Text = txtServer.Text.Trim();
             cboDatabase.Text = cboDatabase.Text.Trim();
+
             if (txtServer.Text == "")
+            {
                 MessageBox.Show(@"Unknown server.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 if (cboDatabase.Text == "")
+                {
                     MessageBox.Show(@"Unknown database.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else
                 {
                     var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString)
@@ -37,8 +42,11 @@ namespace Sql2016DependencyBrowser
                         DataSource = txtServer.Text,
                         InitialCatalog = cboDatabase.Text
                     };
+
                     if (radioIntegrated.Checked)
+                    {
                         cnstrBuild.IntegratedSecurity = true;
+                    }
                     else
                     {
                         if (txtUsername.Text == "" || txtPassword.Text == "")
@@ -46,16 +54,19 @@ namespace Sql2016DependencyBrowser
                             MessageBox.Show(this, @"Missing username or password.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+
                         cnstrBuild.IntegratedSecurity = false;
                         cnstrBuild.UserID = txtUsername.Text;
                         cnstrBuild.Password = txtPassword.Text;
                     }
+
                     Cursor = Cursors.WaitCursor;
                     btnTest.Enabled = false;
                     Refresh();
                     var success = SqlHelper.TestConnection(cnstrBuild.ConnectionString);
                     btnTest.Enabled = true;
                     Cursor = Cursors.Default;
+
                     if (success)
                     {
                         if (SqlHelper.CheckVersion(cnstrBuild.ConnectionString))
@@ -64,6 +75,7 @@ namespace Sql2016DependencyBrowser
                             MessageBox.Show(this, @"Not expected SQL Server version or insufficient permissions.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+
                     MessageBox.Show(this, @"Can't connect to database.", @"Test failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -88,21 +100,30 @@ namespace Sql2016DependencyBrowser
         {
             try
             {
-                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString) { DataSource = txtServer.Text, InitialCatalog = cboDatabase.Text };
+                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString)
+                {
+                    DataSource = txtServer.Text,
+                    InitialCatalog = cboDatabase.Text
+                };
+
                 if (radioIntegrated.Checked)
+                {
                     cnstrBuild.IntegratedSecurity = true;
+                }
                 else
                 {
                     cnstrBuild.IntegratedSecurity = false;
                     cnstrBuild.UserID = txtUsername.Text;
                     cnstrBuild.Password = txtPassword.Text;
                 }
+
                 Cursor = Cursors.WaitCursor;
                 btnOK.Enabled = false;
                 Refresh();
                 var success = SqlHelper.TestConnection(cnstrBuild.ConnectionString);
                 btnOK.Enabled = true;
                 Cursor = Cursors.Default;
+                
                 if (success)
                 {
                     ConnectionString = cnstrBuild.ConnectionString;
@@ -111,10 +132,12 @@ namespace Sql2016DependencyBrowser
                     if (Application.UserAppDataRegistry != null)
                     {
                         var securityType = "";
+
                         if (radioIntegrated.Checked)
                             securityType = "Integrated";
                         else if (radioSQLSecurity.Checked)
                             securityType = "SQL";
+
                         Application.UserAppDataRegistry.SetValue("ServerName", txtServer.Text);
                         Application.UserAppDataRegistry.SetValue("SecurityType", securityType);
                         Application.UserAppDataRegistry.SetValue("Database", cboDatabase.Text);
@@ -122,9 +145,11 @@ namespace Sql2016DependencyBrowser
                         Application.UserAppDataRegistry.SetValue("RememberPass", chkRememberPassword.Checked ? "Yes" : "No");
                         Application.UserAppDataRegistry.SetValue("Pass", chkRememberPassword.Checked ? txtPassword.Text : "");
                     }
+
                     DialogResult = DialogResult.OK;
                     return;
                 }
+
                 MessageBox.Show(this, @"The given information could not be used to connect to SQL Server.", @"Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
@@ -137,8 +162,10 @@ namespace Sql2016DependencyBrowser
         {
             if (Application.UserAppDataRegistry == null)
                 return;
+
             txtServer.Text = Application.UserAppDataRegistry.GetValue("ServerName", "") as string ?? "";
             var securityType = Application.UserAppDataRegistry.GetValue("SecurityType", "") as string ?? "";
+
             switch (securityType)
             {
                 case "Integrated":
@@ -148,6 +175,7 @@ namespace Sql2016DependencyBrowser
                     radioSQLSecurity.Checked = true;
                     break;
             }
+
             cboDatabase.Text = Application.UserAppDataRegistry.GetValue("Database", "") as string ?? "";
             txtUsername.Text = Application.UserAppDataRegistry.GetValue("Username", "") as string ?? "";
             chkRememberPassword.Checked = (Application.UserAppDataRegistry.GetValue("RememberPass", "") as string ?? "") == "Yes";
@@ -158,31 +186,40 @@ namespace Sql2016DependencyBrowser
         {
             cboDatabase.Items.Clear();
             Cursor = Cursors.WaitCursor;
+
             try
             {
                 var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString) { DataSource = txtServer.Text, InitialCatalog = "master" };
+
                 if (radioIntegrated.Checked)
+                {
                     cnstrBuild.IntegratedSecurity = true;
+                }
                 else
                 {
                     cnstrBuild.IntegratedSecurity = false;
                     cnstrBuild.UserID = txtUsername.Text;
                     cnstrBuild.Password = txtPassword.Text;
                 }
+
                 using (var cn = new System.Data.SqlClient.SqlConnection(cnstrBuild.ConnectionString))
                 {
                     cn.Open();
+
                     using (var cmd = new System.Data.SqlClient.SqlCommand("SELECT name FROM master..sysdatabases WHERE NOT name = 'master'", cn))
                     {
                         var r = cmd.ExecuteReader();
+
                         while (r.Read())
                         {
                             var s = r.IsDBNull(0) ? "" : r.GetString(0);
                             if (!string.IsNullOrEmpty(s))
                                 cboDatabase.Items.Add(s);
                         }
+
                         r.Close();
                     }
+
                     cn.Close();
                 }
             }
@@ -190,6 +227,7 @@ namespace Sql2016DependencyBrowser
             {
                 // ignored
             }
+
             Cursor = Cursors.Default;
         }
     }

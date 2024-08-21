@@ -1,4 +1,4 @@
-﻿namespace Sql2016DependencyBrowser
+﻿namespace Sql2022DependencyBrowser
 {
    partial class MainWindow
    {
@@ -161,7 +161,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "SQL 2016 Dependency Browser";
+            this.Text = "SQL 2022 Dependency Browser";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.statusStrip1.ResumeLayout(false);

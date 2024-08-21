@@ -1,12 +1,13 @@
 ﻿using System.Data.SqlClient;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public class SqlHelper
     {
         public static bool TestConnection(SqlConnection cn)
         {
             bool ret;
+
             try
             {
                 cn.Open();
@@ -17,12 +18,14 @@ namespace Sql2016DependencyBrowser
             {
                 ret = false;
             }
+
             return ret;
         }
 
         public static bool TestConnection(string connectionString)
         {
             bool ret;
+
             try
             {
                 using (var cn = new SqlConnection(connectionString))
@@ -32,26 +35,31 @@ namespace Sql2016DependencyBrowser
             {
                 ret = false;
             }
+
             return ret;
         }
 
         public static bool CheckVersion(string connectionString)
         {
             var ret = false;
+
             try
             {
                 using (var cn = new SqlConnection(connectionString))
                 {
                     cn.Open();
+                    
                     using (var cmd = new SqlCommand("SELECT @@VERSION", cn))
                     {
                         var s = (string)cmd.ExecuteScalar();
+                        
                         if (s.ToLower().StartsWith("microsoft sql server "))
                         {
                             if (int.TryParse(s.Substring(21, 4), out var year))
                                 ret = year >= 2016;
                         }
                     }
+
                     cn.Close();
                 }
             }
@@ -59,6 +67,7 @@ namespace Sql2016DependencyBrowser
             {
                 ret = false;
             }
+
             return ret;
         }
 
@@ -67,22 +76,27 @@ namespace Sql2016DependencyBrowser
             id = 0;
             name = objectName;
             type = "";
+
             try
             {
                 if (objectName.IndexOf('.') <= -1)
                     return true;
 
-                var splitname = objectName.Split('.');
-                name = splitname[1];
+                var splitName = objectName.Split('.');
+                name = splitName[1];
                 var schemaId = 0;
+                
                 using (var cmd = new SqlCommand("SELECT schema_id FROM sys.schemas WHERE name=@n", cn))
                 {
-                    cmd.Parameters.AddWithValue("@n", splitname[0]);
+                    cmd.Parameters.AddWithValue("@n", splitName[0]);
                     var r = cmd.ExecuteReader();
+                    
                     if (r.Read())
                         schemaId = r.IsDBNull(0) ? 0 : r.GetInt32(0);
+                    
                     r.Close();
                 }
+                
                 if (schemaId <= 0)
                     return true;
 
@@ -91,13 +105,16 @@ namespace Sql2016DependencyBrowser
                     cmd.Parameters.AddWithValue("@n", name);
                     cmd.Parameters.AddWithValue("@s", schemaId);
                     var r = cmd.ExecuteReader();
+                    
                     if (r.Read())
                     {
                         id = r.IsDBNull(0) ? 0 : r.GetInt32(0);
                         type = r.IsDBNull(1) ? "" : r.GetString(1);
                     }
+
                     r.Close();
                 }
+
                 return true;
             }
             catch

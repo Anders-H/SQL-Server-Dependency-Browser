@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     internal static class Program
    {

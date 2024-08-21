@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public class DbObject
     {

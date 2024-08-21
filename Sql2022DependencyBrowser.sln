@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sql2016DependencyBrowser", "Sql2016DependencyBrowser\Sql2016DependencyBrowser.csproj", "{0D351E6D-5502-4D73-AECF-7BF4784633DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sql2022DependencyBrowser", "Sql2022DependencyBrowser\Sql2022DependencyBrowser.csproj", "{0D351E6D-5502-4D73-AECF-7BF4784633DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DC44FF93-DBF1-44DC-86A6-CB27CCB72E20}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

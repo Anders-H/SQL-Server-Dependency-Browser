@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Sql2016DependencyBrowser
+namespace Sql2022DependencyBrowser
 {
     public class SysObject : DbObject
     {
@@ -20,11 +20,13 @@ namespace Sql2016DependencyBrowser
             var name = "";
             var sId = 0;
             var sName = "";
+
             using (var cmd = new SqlCommand("SELECT t.name, s.schema_id, s.name as sname FROM sys.objects AS t INNER JOIN sys.schemas AS s ON t.[schema_id] = s.[schema_id] WHERE t.object_id=@id AND t.type_desc=@t", cn))
             {
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@t", type);
                 var r = cmd.ExecuteReader();
+                
                 if (r.Read())
                 {
                     if (!r.IsDBNull(0))
@@ -34,10 +36,13 @@ namespace Sql2016DependencyBrowser
                     if (!r.IsDBNull(2))
                         sName = r.GetString(2);
                 }
+                
                 r.Close();
             }
+            
             if (id == 965578478)
                 System.Diagnostics.Debug.WriteLine(id);
+            
             return new SysObject(id, type, name, sId, sName);
         }
 
@@ -47,9 +52,11 @@ namespace Sql2016DependencyBrowser
         public List<DbObject> GetDependencies(SqlConnection cn)
         {
             var ret = new List<DbObject>();
+
             try
             {
                 var names = new List<string>();
+
                 using (var cmd = new SqlCommand("sp_depends", cn))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -65,14 +72,17 @@ namespace Sql2016DependencyBrowser
                         if (!names.Contains(n))
                             names.Add(n);
                     }
+
                     r.Close();
                 }
+
                 ret.AddRange(names.Select(n => new DbObject(cn, n)));
             }
             catch
             {
                 // ignored
             }
+
             return ret;
         }
 
@@ -80,7 +90,9 @@ namespace Sql2016DependencyBrowser
         {
             if (Type == "USER_TABLE")
                 return "Source not available for table.";
+
             var ret = new System.Text.StringBuilder();
+
             try
             {
                 using (var cmd = new SqlCommand("sp_HelpText", cn))
@@ -100,6 +112,7 @@ namespace Sql2016DependencyBrowser
             {
                 // ignored
             }
+
             return ret.ToString();
         }
     }
