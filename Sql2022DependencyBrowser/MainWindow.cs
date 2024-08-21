@@ -190,15 +190,18 @@ namespace Sql2022DependencyBrowser
             //Denna körs bara när vi verkligen hittat en child som är en dummy.
             Cursor = Cursors.WaitCursor;
             n.Nodes.Clear();
+
             if (n.Tag is DbObject dbObject)
             {
                 var dbo = dbObject;
+
                 try
                 {
                     using (var cn = new SqlConnection(_connectionString))
                     {
                         cn.Open();
                         bool itemIsSysObjects, itemIsIndex;
+
                         using (var cmd = new SqlCommand("SELECT (SELECT COUNT(*) FROM sys.objects WHERE type_desc=@t), (SELECT COUNT(*) FROM sys.indexes WHERE type_desc=@t)", cn))
                         {
                             cmd.Parameters.AddWithValue("@t", dbo.Type);
@@ -208,13 +211,14 @@ namespace Sql2022DependencyBrowser
                             itemIsIndex = r.GetInt32(1) > 0;
                             r.Close();
                         }
+
                         if (itemIsSysObjects)
                         {
                             var o = SysObject.GetObject(cn, dbo.Id, dbo.Type);
                             if (o.Id > 0 && o.SchemaId > 0)
                             {
-                                var deps = o.GetDependencies(cn);
-                                foreach (var dep in deps)
+                                var dependencies = o.GetDependencies(cn);
+                                foreach (var dep in dependencies)
                                 {
                                     var node = n.Nodes.Add(dep.Name);
                                     var obj = new DbObject(dep.Id, n.Text, dep.Type);
@@ -242,6 +246,7 @@ namespace Sql2022DependencyBrowser
                         {
                             //Do nothing.
                         }
+
                         cn.Close();
                     }
                 }
@@ -255,9 +260,7 @@ namespace Sql2022DependencyBrowser
         }
 
         private void btnAbout_Click(object sender, EventArgs e) =>
-            Md.Tell(
-                $@"SQL Server 2016 Dependency Browser version {Application.ProductVersion} for SQL Server 2016 or later.",
-                @"About");
+            Md.Tell($@"SQL Server 2022 Dependency Browser version {Application.ProductVersion} for SQL Server 2022 or later.", @"About");
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) =>
             btnProperties.Enabled = e.Node?.Tag is DbObject;

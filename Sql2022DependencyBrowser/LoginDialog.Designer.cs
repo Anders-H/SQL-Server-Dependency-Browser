@@ -42,12 +42,17 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.chkRememberPassword = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 0;
@@ -55,17 +60,17 @@
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(12, 28);
+            this.txtServer.Location = new System.Drawing.Point(8, 24);
             this.txtServer.MaxLength = 200;
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(308, 20);
+            this.txtServer.Size = new System.Drawing.Size(508, 20);
             this.txtServer.TabIndex = 1;
             // 
             // radioIntegrated
             // 
             this.radioIntegrated.AutoSize = true;
             this.radioIntegrated.Checked = true;
-            this.radioIntegrated.Location = new System.Drawing.Point(12, 56);
+            this.radioIntegrated.Location = new System.Drawing.Point(8, 52);
             this.radioIntegrated.Name = "radioIntegrated";
             this.radioIntegrated.Size = new System.Drawing.Size(112, 17);
             this.radioIntegrated.TabIndex = 2;
@@ -77,7 +82,7 @@
             // radioSQLSecurity
             // 
             this.radioSQLSecurity.AutoSize = true;
-            this.radioSQLSecurity.Location = new System.Drawing.Point(12, 80);
+            this.radioSQLSecurity.Location = new System.Drawing.Point(132, 52);
             this.radioSQLSecurity.Name = "radioSQLSecurity";
             this.radioSQLSecurity.Size = new System.Drawing.Size(119, 17);
             this.radioSQLSecurity.TabIndex = 3;
@@ -88,17 +93,17 @@
             // txtUsername
             // 
             this.txtUsername.Enabled = false;
-            this.txtUsername.Location = new System.Drawing.Point(12, 120);
+            this.txtUsername.Location = new System.Drawing.Point(8, 96);
             this.txtUsername.MaxLength = 200;
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(308, 20);
+            this.txtUsername.Size = new System.Drawing.Size(508, 20);
             this.txtUsername.TabIndex = 5;
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Enabled = false;
-            this.lblUsername.Location = new System.Drawing.Point(12, 104);
+            this.lblUsername.Location = new System.Drawing.Point(8, 80);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(58, 13);
             this.lblUsername.TabIndex = 4;
@@ -107,10 +112,10 @@
             // txtPassword
             // 
             this.txtPassword.Enabled = false;
-            this.txtPassword.Location = new System.Drawing.Point(12, 160);
+            this.txtPassword.Location = new System.Drawing.Point(8, 136);
             this.txtPassword.MaxLength = 200;
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(308, 20);
+            this.txtPassword.Size = new System.Drawing.Size(372, 20);
             this.txtPassword.TabIndex = 7;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -118,7 +123,7 @@
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Enabled = false;
-            this.lblPassword.Location = new System.Drawing.Point(12, 144);
+            this.lblPassword.Location = new System.Drawing.Point(8, 120);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(56, 13);
             this.lblPassword.TabIndex = 6;
@@ -127,7 +132,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 212);
+            this.label4.Location = new System.Drawing.Point(8, 160);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 9;
@@ -136,16 +141,16 @@
             // cboDatabase
             // 
             this.cboDatabase.FormattingEnabled = true;
-            this.cboDatabase.Location = new System.Drawing.Point(12, 232);
+            this.cboDatabase.Location = new System.Drawing.Point(8, 176);
             this.cboDatabase.MaxLength = 200;
             this.cboDatabase.Name = "cboDatabase";
-            this.cboDatabase.Size = new System.Drawing.Size(308, 21);
+            this.cboDatabase.Size = new System.Drawing.Size(508, 21);
             this.cboDatabase.TabIndex = 10;
             this.cboDatabase.DropDown += new System.EventHandler(this.cboDatabase_DropDown);
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(12, 272);
+            this.btnTest.Location = new System.Drawing.Point(12, 240);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 11;
@@ -155,7 +160,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(164, 272);
+            this.btnOK.Location = new System.Drawing.Point(376, 240);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 12;
@@ -166,7 +171,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(244, 272);
+            this.btnCancel.Location = new System.Drawing.Point(456, 240);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 13;
@@ -176,12 +181,53 @@
             // chkRememberPassword
             // 
             this.chkRememberPassword.AutoSize = true;
-            this.chkRememberPassword.Location = new System.Drawing.Point(12, 188);
+            this.chkRememberPassword.Location = new System.Drawing.Point(388, 136);
             this.chkRememberPassword.Name = "chkRememberPassword";
             this.chkRememberPassword.Size = new System.Drawing.Size(125, 17);
             this.chkRememberPassword.TabIndex = 8;
             this.chkRememberPassword.Text = "Remember password";
             this.chkRememberPassword.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(4, 4);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(532, 232);
+            this.tabControl1.TabIndex = 14;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.chkRememberPassword);
+            this.tabPage1.Controls.Add(this.txtServer);
+            this.tabPage1.Controls.Add(this.radioIntegrated);
+            this.tabPage1.Controls.Add(this.radioSQLSecurity);
+            this.tabPage1.Controls.Add(this.lblUsername);
+            this.tabPage1.Controls.Add(this.cboDatabase);
+            this.tabPage1.Controls.Add(this.txtUsername);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.lblPassword);
+            this.tabPage1.Controls.Add(this.txtPassword);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(524, 206);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 74);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // LoginDialog
             // 
@@ -189,21 +235,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(330, 306);
-            this.Controls.Add(this.chkRememberPassword);
+            this.ClientSize = new System.Drawing.Size(539, 268);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnTest);
-            this.Controls.Add(this.cboDatabase);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.lblUsername);
-            this.Controls.Add(this.radioSQLSecurity);
-            this.Controls.Add(this.radioIntegrated);
-            this.Controls.Add(this.txtServer);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -212,8 +248,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
             this.Load += new System.EventHandler(this.LoginDialog_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
       }
 
@@ -233,5 +271,8 @@
       private System.Windows.Forms.Button btnOK;
       private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox chkRememberPassword;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
