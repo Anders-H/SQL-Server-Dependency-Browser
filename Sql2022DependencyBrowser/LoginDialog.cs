@@ -129,22 +129,9 @@ namespace Sql2022DependencyBrowser
                     ConnectionString = cnstrBuild.ConnectionString;
                     ServerName = cnstrBuild.DataSource;
                     DatabaseName = cnstrBuild.InitialCatalog;
+
                     if (Application.UserAppDataRegistry != null)
-                    {
-                        var securityType = "";
-
-                        if (radioIntegrated.Checked)
-                            securityType = "Integrated";
-                        else if (radioSQLSecurity.Checked)
-                            securityType = "SQL";
-
-                        Application.UserAppDataRegistry.SetValue("ServerName", txtServer.Text);
-                        Application.UserAppDataRegistry.SetValue("SecurityType", securityType);
-                        Application.UserAppDataRegistry.SetValue("Database", cboDatabase.Text);
-                        Application.UserAppDataRegistry.SetValue("Username", txtUsername.Text);
-                        Application.UserAppDataRegistry.SetValue("RememberPass", chkRememberPassword.Checked ? "Yes" : "No");
-                        Application.UserAppDataRegistry.SetValue("Pass", chkRememberPassword.Checked ? txtPassword.Text : "");
-                    }
+                        SaveForm();
 
                     DialogResult = DialogResult.OK;
                     return;
@@ -155,6 +142,31 @@ namespace Sql2022DependencyBrowser
             catch
             {
                 MessageBox.Show(this, @"The given information could not be used to connect to SQL Server.", @"Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveForm()
+        {
+            var securityType = "";
+
+            if (radioIntegrated.Checked)
+                securityType = "Integrated";
+            else if (radioSQLSecurity.Checked)
+                securityType = "SQL";
+
+            if (Application.UserAppDataRegistry == null)
+            {
+                
+            }
+            else
+            {
+                Application.UserAppDataRegistry.SetValue("ServerName", txtServer.Text);
+                Application.UserAppDataRegistry.SetValue("SecurityType", securityType);
+                Application.UserAppDataRegistry.SetValue("Database", cboDatabase.Text);
+                Application.UserAppDataRegistry.SetValue("Username", txtUsername.Text);
+                Application.UserAppDataRegistry.SetValue("RememberPass", chkRememberPassword.Checked ? "Yes" : "No");
+                Application.UserAppDataRegistry.SetValue("Pass", chkRememberPassword.Checked ? txtPassword.Text : "");
+                Application.UserAppDataRegistry.SetValue("DesieredConnectionString", txtConStr.Text);
             }
         }
 
@@ -180,6 +192,7 @@ namespace Sql2022DependencyBrowser
             txtUsername.Text = Application.UserAppDataRegistry.GetValue("Username", "") as string ?? "";
             chkRememberPassword.Checked = (Application.UserAppDataRegistry.GetValue("RememberPass", "") as string ?? "") == "Yes";
             txtPassword.Text = Application.UserAppDataRegistry.GetValue("Pass", "") as string ?? "";
+            txtConStr.Text = Application.UserAppDataRegistry.GetValue("DesieredConnectionString", "") as string ?? "";
         }
 
         private void cboDatabase_DropDown(object sender, EventArgs e)
