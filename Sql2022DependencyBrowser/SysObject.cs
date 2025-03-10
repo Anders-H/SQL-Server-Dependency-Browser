@@ -31,8 +31,10 @@ namespace Sql2022DependencyBrowser
                 {
                     if (!r.IsDBNull(0))
                         name = r.GetString(0);
+
                     if (!r.IsDBNull(1))
                         sId = r.GetInt32(1);
+                    
                     if (!r.IsDBNull(2))
                         sName = r.GetString(2);
                 }
@@ -62,6 +64,7 @@ namespace Sql2022DependencyBrowser
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@objname", ToString());
                     var r = cmd.ExecuteReader();
+
                     while (r.Read())
                     {
                         if (r.IsDBNull(0))
@@ -100,11 +103,13 @@ namespace Sql2022DependencyBrowser
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@objname", ToString());
                     var r = cmd.ExecuteReader();
+
                     while (r.Read())
                     {
                         if (!r.IsDBNull(0))
                             ret.Append(r.GetString(0));
                     }
+
                     r.Close();
                 }
             }

@@ -45,9 +45,10 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtConStr = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.chkTrustServerCertificate = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -119,7 +120,7 @@
             this.txtPassword.Location = new System.Drawing.Point(8, 136);
             this.txtPassword.MaxLength = 200;
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(372, 20);
+            this.txtPassword.Size = new System.Drawing.Size(360, 20);
             this.txtPassword.TabIndex = 7;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -148,7 +149,7 @@
             this.cboDatabase.Location = new System.Drawing.Point(8, 176);
             this.cboDatabase.MaxLength = 200;
             this.cboDatabase.Name = "cboDatabase";
-            this.cboDatabase.Size = new System.Drawing.Size(508, 21);
+            this.cboDatabase.Size = new System.Drawing.Size(360, 21);
             this.cboDatabase.TabIndex = 10;
             this.cboDatabase.DropDown += new System.EventHandler(this.cboDatabase_DropDown);
             // 
@@ -185,7 +186,7 @@
             // chkRememberPassword
             // 
             this.chkRememberPassword.AutoSize = true;
-            this.chkRememberPassword.Location = new System.Drawing.Point(388, 136);
+            this.chkRememberPassword.Location = new System.Drawing.Point(384, 136);
             this.chkRememberPassword.Name = "chkRememberPassword";
             this.chkRememberPassword.Size = new System.Drawing.Size(125, 17);
             this.chkRememberPassword.TabIndex = 8;
@@ -204,6 +205,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chkTrustServerCertificate);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.chkRememberPassword);
             this.tabPage1.Controls.Add(this.txtServer);
@@ -236,6 +238,15 @@
             this.tabPage2.Text = "Use a connection string";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(361, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Use this tab to ignore the properties and connect using a connection string.";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -253,14 +264,15 @@
             this.txtConStr.Size = new System.Drawing.Size(508, 20);
             this.txtConStr.TabIndex = 2;
             // 
-            // label3
+            // chkTrustServerCertificate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(361, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Use this tab to ignore the properties and connect using a connection string.";
+            this.chkTrustServerCertificate.AutoSize = true;
+            this.chkTrustServerCertificate.Location = new System.Drawing.Point(384, 180);
+            this.chkTrustServerCertificate.Name = "chkTrustServerCertificate";
+            this.chkTrustServerCertificate.Size = new System.Drawing.Size(131, 17);
+            this.chkTrustServerCertificate.TabIndex = 11;
+            this.chkTrustServerCertificate.Text = "Trust server certificate";
+            this.chkTrustServerCertificate.UseVisualStyleBackColor = true;
             // 
             // LoginDialog
             // 
@@ -312,5 +324,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtConStr;
+        private System.Windows.Forms.CheckBox chkTrustServerCertificate;
     }
 }

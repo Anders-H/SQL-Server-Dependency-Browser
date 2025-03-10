@@ -65,18 +65,18 @@ namespace Sql2022DependencyBrowser
                 if (SqlHelper.CheckVersion(cnstrBuild.ConnectionString))
                 {
                     lblStatus.Text = $@"Connected to server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : (_serverName == "." ? "local server" : _serverName))}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                    Md.Void(@"Test successful.", @"Test completed");
+                    Md.Void(this, @"Test successful.", @"Test completed");
                 }
                 else
                 {
                     lblStatus.Text = $@"Could not connect server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : _serverName)}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                    Md.Fail(@"Not expected SQL Server version or insufficient permissions.", @"Test failed");
+                    Md.Fail(this, @"Not expected SQL Server version or insufficient permissions.", @"Test failed");
                 }
             }
             else
             {
                 lblStatus.Text = $@"Could not connect server {(string.IsNullOrEmpty(_serverName) ? "[Unknown server]" : _serverName)}, database {(string.IsNullOrEmpty(_databaseName) ? "[Unknown database]" : _databaseName)}.";
-                Md.Fail(@"Can't connect to database.", @"Test failed");
+                Md.Fail(this, @"Can't connect to database.", @"Test failed");
             }
         }
 
@@ -253,14 +253,14 @@ namespace Sql2022DependencyBrowser
                 catch (Exception ex)
                 {
                     Cursor = Cursors.Default;
-                    Md.Fail(ex.Message, @"An error has occured");
+                    Md.Fail(this, ex.Message, @"An error has occured");
                 }
             }
             Cursor = Cursors.Default;
         }
 
         private void btnAbout_Click(object sender, EventArgs e) =>
-            Md.Tell($@"SQL Server 2022 Dependency Browser version {Application.ProductVersion} for SQL Server 2022 or later.", @"About");
+            Md.Tell(this, $@"SQL Server 2022 Dependency Browser version {Application.ProductVersion} for SQL Server 2022 or later.", @"About");
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) =>
             btnProperties.Enabled = e.Node?.Tag is DbObject;

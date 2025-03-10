@@ -167,6 +167,7 @@ namespace Sql2022DependencyBrowser
                 Application.UserAppDataRegistry.SetValue("RememberPass", chkRememberPassword.Checked ? "Yes" : "No");
                 Application.UserAppDataRegistry.SetValue("Pass", chkRememberPassword.Checked ? txtPassword.Text : "");
                 Application.UserAppDataRegistry.SetValue("DesieredConnectionString", txtConStr.Text);
+                Application.UserAppDataRegistry.SetValue("TrustServerCertificate", chkTrustServerCertificate.Checked ? "Yes" : "No");
             }
         }
 
@@ -193,6 +194,7 @@ namespace Sql2022DependencyBrowser
             chkRememberPassword.Checked = (Application.UserAppDataRegistry.GetValue("RememberPass", "") as string ?? "") == "Yes";
             txtPassword.Text = Application.UserAppDataRegistry.GetValue("Pass", "") as string ?? "";
             txtConStr.Text = Application.UserAppDataRegistry.GetValue("DesieredConnectionString", "") as string ?? "";
+            chkTrustServerCertificate.Checked = (Application.UserAppDataRegistry.GetValue("TrustServerCertificate", "") as string ?? "") == "Yes";
         }
 
         private void cboDatabase_DropDown(object sender, EventArgs e)
@@ -202,7 +204,13 @@ namespace Sql2022DependencyBrowser
 
             try
             {
-                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString) { DataSource = txtServer.Text, InitialCatalog = "master" };
+                var cnstrBuild = new System.Data.SqlClient.SqlConnectionStringBuilder(ConnectionString)
+                {
+                    DataSource = txtServer.Text,
+                    InitialCatalog = "master"
+                };
+
+                cnstrBuild.TrustServerCertificate = chkTrustServerCertificate.Checked;
 
                 if (radioIntegrated.Checked)
                 {
